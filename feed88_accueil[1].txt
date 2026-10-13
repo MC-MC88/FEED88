@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0e">
+<meta name="description" content="Feed 88 — Choisissez votre lecteur RSS. Version classique ou version senior.">
+<meta name="color-scheme" content="dark">
+<title>Feed 88 — Accueil</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0b0e'/><text x='50' y='68' font-family='Georgia,serif' font-size='46' font-weight='700' text-anchor='middle' fill='%23c6ff3d'>F8</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0a0b0e;
+  --bg2:#11131a;
+  --bg3:#181b24;
+  --bg4:#1f232f;
+  --bd:#23273a;
+  --tx:#e8ecf5;
+  --tx2:#9ba3b8;
+  --tx3:#5f6880;
+  --ac:#c6ff3d;
+  --actx:#0a0b0e;
+  --glow:rgba(198,255,61,.35);
+  --fb:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fu:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --fg:'UnifrakturCook','Space Grotesk',serif;
+  --r:14px;
+  --t:.25s cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+html,body{
+  min-height:100vh;
+  min-height:100dvh;
+  background:var(--bg);
+  color:var(--tx);
+  font-family:var(--fu);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  padding:32px 20px calc(40px + env(safe-area-inset-bottom));
+  padding-top:calc(32px + env(safe-area-inset-top));
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  top:-30%;
+  left:50%;
+  transform:translateX(-50%);
+  width:900px;
+  height:900px;
+  background:radial-gradient(circle,rgba(198,255,61,.09) 0%,transparent 62%);
+  pointer-events:none;
+  z-index:0;
+}
+
+::selection{background:var(--ac);color:var(--actx)}
+
+.wrap{
+  flex:1;
+  width:100%;
+  max-width:1000px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.head{
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.logo{
+  font-family:var(--fg);
+  font-weight:700;
+  font-size:56px;
+  line-height:1;
+  letter-spacing:-1.5px;
+  color:var(--tx);
+  display:inline-block;
+  margin-bottom:18px;
+}
+.logo .n{
+  color:var(--ac);
+  font-style:italic;
+  font-size:58px;
+  text-shadow:0 0 24px var(--glow);
+}
+
+.tag{
+  font-family:var(--fm);
+  font-size:11px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--tx3);
+  margin-bottom:20px;
+}
+
+.lede{
+  font-size:16px;
+  color:var(--tx2);
+  max-width:520px;
+  margin:0 auto;
+  line-height:1.7;
+}
+
+.choices{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+@media (min-width:720px){
+  .choices{grid-template-columns:1fr 1fr;gap:22px}
+}
+
+.card{
+  display:flex;
+  flex-direction:column;
+  background:var(--bg2);
+  border:1px solid var(--bd);
+  border-radius:var(--r);
+  padding:32px 28px 28px;
+  text-decoration:none;
+  color:inherit;
+  position:relative;
+  overflow:hidden;
+  transition:transform var(--t),border-color var(--t),background var(--t);
+}
+
+.card::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:var(--accent,var(--ac));
+  opacity:.7;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent,var(--ac));
+  background:var(--bg3);
+}
+.card:hover::after{transform:scaleX(1)}
+
+.card:active{transform:translateY(-1px)}
+
+.card:focus-visible{
+  outline:2px solid var(--accent,var(--ac));
+  outline-offset:3px;
+}
+
+.card[data-variant="classic"]{--accent:var(--ac)}
+.card[data-variant="senior"]{--accent:#ff8a3d}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  align-self:flex-start;
+  font-family:var(--fm);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border-radius:20px;
+  background:var(--bg4);
+  color:var(--accent,var(--ac));
+  border:1px solid var(--bd);
+  margin-bottom:20px;
+}
+.badge .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent,var(--ac));
+  box-shadow:0 0 8px var(--accent,var(--ac));
+}
+
+.card h2{
+  font-family:var(--fb);
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:-.4px;
+  line-height:1.2;
+  margin-bottom:6px;
+  color:var(--tx);
+}
+
+.card .lang{
+  font-family:var(--fm);
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--tx3);
+  margin-bottom:16px;
+}
+
+.card p{
+  font-size:14.5px;
+  color:var(--tx2);
+  line-height:1.65;
+  margin-bottom:24px;
+  flex:1;
+}
+
+.cta{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  align-self:flex-start;
+  font-family:var(--fb);
+  font-size:14px;
+  font-weight:600;
+  padding:13px 22px;
+  border-radius:10px;
+  background:var(--bg4);
+  color:var(--tx);
+  border:1px solid var(--bd);
+  transition:all var(--t);
+  min-height:46px;
+}
+
+.card:hover .cta{
+  background:var(--accent,var(--ac));
+  color:var(--actx);
+  border-color:var(--accent,var(--ac));
+}
+
+.cta svg{
+  width:15px;
+  height:15px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  transition:transform var(--t);
+}
+.card:hover .cta svg{transform:translateX(3px)}
+
+.foot{
+  text-align:center;
+  margin-top:52px;
+  font-family:var(--fm);
+  font-size:11px;
+  color:var(--tx3);
+  letter-spacing:.4px;
+  line-height:1.8;
+}
+.foot a{
+  color:var(--tx3);
+  text-decoration:none;
+  border-bottom:1px dotted var(--tx3);
+  transition:color var(--t),border-color var(--t);
+}
+.foot a:hover{color:var(--ac);border-bottom-color:var(--ac)}
+
+@media (max-width:600px){
+  .logo{font-size:44px}
+  .logo .n{font-size:46px}
+  .head{margin-bottom:34px}
+  .card{padding:26px 22px 22px}
+  .card h2{font-size:21px}
+  .foot{margin-top:36px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.001ms !important;animation-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="head">
+    <div class="logo">Feed<span class="n">88</span></div>
+    <div class="tag">Lecteur RSS · Sans pub · Sans algorithme</div>
+    <p class="lede">
+      Choisissez la version qui vous convient. Vos flux, vos règles.
+    </p>
+  </header>
+
+  <main class="choices" role="list">
+
+    <a class="card" data-variant="classic" href="feed88.html" role="listitem">
+      <span class="badge"><span class="dot"></span>Version classique</span>
+      <h2>Feed 88</h2>
+      <div class="lang">English · 8 thèmes</div>
+      <p>
+        Le lecteur complet : catalogue de 100 flux, huit thèmes,
+        recherche, favoris, import et export OPML. Interface dense
+        pensée pour ceux qui lisent beaucoup.
+      </p>
+      <span class="cta">
+        Ouvrir
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <a class="card" data-variant="senior" href="feedsenior.html" role="listitem">
+      <span class="badge"><span class="dot"></span>Version senior</span>
+      <h2>Feed 88 Senior</h2>
+      <div class="lang">Français · 3 thèmes</div>
+      <p>
+        Textes plus grands, boutons plus larges, contraste élevé.
+        Une interface calme et lisible, avec un catalogue de
+        50 journaux français classés par rubrique.
+      </p>
+      <span class="cta">
+        Ouvrir
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+  </main>
+
+  <footer class="foot">
+    © Feed 88 · par MC88<br>
+    <a href="mailto:mohamed005cheikh@gmail.com">mohamed005cheikh@gmail.com</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
